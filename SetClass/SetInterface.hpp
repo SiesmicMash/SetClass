@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
-#include <algorithm>
+#include <iostream>
 using namespace std;
 template <class ItemType>
 
@@ -23,7 +23,7 @@ public:
     virtual bool addElement(const ItemType& newEntry) = 0;
     virtual bool removeElement(const ItemType& anEntry) = 0;
     virtual void clear() = 0;
-    virtual void isSubset(const ItemType& otherSet) = 0;
+    virtual bool isSubset(const SetInterface<ItemType>& otherSet) const = 0;
     virtual vector<ItemType> toVector() const = 0;
     virtual ~SetInterface () { }; //Empty destructor
 };

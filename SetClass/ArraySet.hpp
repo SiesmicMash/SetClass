@@ -32,7 +32,7 @@ public:
     bool addElement(const ItemType& item);
     bool removeElement(const ItemType& item);
     void clear();
-    bool isSubset(const ItemType& otherSet)const;
+    bool isSubset(const SetInterface<ItemType>& otherSet)const;
     vector<ItemType> toVector() const;
     
 private:

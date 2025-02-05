@@ -1,11 +1,89 @@
 //
+//  SetInterface.h
+//  SetClass
+//
+//  Created by Usaid Ali Syed on 2025-02-01.
+//
+
+#ifndef SET_INTERFACE_
+#define SET_INTERFACE_
+
+#include <stdio.h>
+#include <vector>
+#include <iostream>
+using namespace std;
+template <class ItemType>
+
+class SetInterface {
+
+public:
+    virtual int getCardinality() const = 0;
+    virtual bool isEmpty() const = 0;
+    virtual bool contains(const ItemType& anEntry) const = 0;
+    virtual bool addElement(const ItemType& newEntry) = 0;
+    virtual bool removeElement(const ItemType& anEntry) = 0;
+    virtual void clear() = 0;
+    virtual bool isSubset(const SetInterface<ItemType>& otherSet) const = 0;
+    virtual vector<ItemType> toVector() const = 0;
+    virtual ~SetInterface () { }; //Empty destructor
+};
+
+#endif /* SetInterface_hpp */
+
+//
+//  ArraySet.h
+//  SetClass
+//
+//  Created by Usaid Ali Syed on 2025-02-03.
+//
+
+#ifndef ARRAY_SET_
+#define ARRAY_SET_
+
+#include "SetInterface.h"
+
+template <class ItemType>
+class ArraySet: public SetInterface<ItemType> {
+private:
+    ItemType *elements;
+    int cardinality;
+    int elementCount;
+    static const int DEFAULT_CARDINALITY = 0;
+    
+    
+    
+public:
+    ArraySet();
+    ArraySet(const ArraySet<ItemType> &sourceSet);
+    ~ArraySet();
+    ArraySet<ItemType>& operator = (const ArraySet<ItemType> &sourceSet);
+    
+    int getCardinality() const;
+    bool isEmpty() const;
+    bool contains(const ItemType& item) const;
+    bool addElement(const ItemType& item);
+    bool removeElement(const ItemType& item);
+    void clear();
+    bool isSubset(const SetInterface<ItemType>& otherSet)const;
+    vector<ItemType> toVector() const;
+    
+private:
+    int getIndexOf(const ItemType& target) const;
+    bool containsRecursive(ItemType *arr, int startIndex, int lastIndex, const ItemType& item)const;
+};
+
+
+#endif /* ArraySet_hpp */
+
+
+//
 //  ArraySet.cpp
 //  SetClass
 //
 //  Created by Usaid Ali Syed on 2025-02-03.
 //
 
-#include "ArraySet.hpp"
+#include "ArraySet.h"
 
 template <class ItemType>
 ArraySet<ItemType> :: ArraySet() : cardinality(DEFAULT_CARDINALITY), elementCount(0) {
@@ -169,3 +247,4 @@ bool ArraySet<ItemType>:: containsRecursive(ItemType *arr, int startIndex, int l
         return containsRecursive(arr, startIndex + 1, lastIndex, item);
     }
 }
+
